@@ -1,0 +1,81 @@
+add_shortcode('reg_vacancies', 'regvacancies' );
+function regvacancies( $atts ) {
+	
+	extract(shortcode_atts(array(
+        'pid' => '', 
+		'new' => '', 
+        ), $atts));
+	
+    ob_start(); 
+	
+	// $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+    $query = new WP_Query( array(
+        'post_type' => 'vacancy',
+		
+		'p'=> $pid,
+		  
+	) );
+	
+	
+    if ( $query->have_posts() ) { 
+	  
+	        
+	  ?>
+	
+       	<div class="homelatesvid-section">  
+		 <div class="_home_homelatesvid_wrappper section group takeatespage_wrapper newbootsrapcols">  
+		  
+		  
+            <?php while ( $query->have_posts() ) : $query->the_post();?>
+			
+			
+			<article class=" home_vacancies">
+                                                    <div class="post-thumb" style="overflow: hidden;">
+														<?php if ($new=='1') { ?>
+		  								 <span class="ribbon top-left ribbon-success">
+          <small>NEW</small>
+        </span>		
+	 <?php  } ?>
+					
+														
+													
+													</div>
+													
+													
+													
+													  <div class="vacancy_content">
+													  
+													  <h2 style = "padding: 0px 30px; text-transform: uppercase; font-size: 15px; margin: 0px 0px 20px 0px;"><?php echo wp_trim_words( get_the_title(), 15 ); ?></h2>
+													   
+													  
+														  <div class="wp_trim_words_cont takeatespage_item_trim_words_cont" style = "padding: 0px 30px; margin: 0px 0px 20px 0px; font-size: 12px; font-family: 'Montserrat',sans-serif; font-weight: 500"><p><?php $content = get_the_content(); echo wp_trim_words( $content , '10' );   ?>	</p>
+													   </div>
+													  
+													  
+														  <div class = "vacancy_readmore"><a href="<?php the_permalink(); ?>" class="vacancy_readmore"><span>Find out more</span></a></div>
+													  
+													  </div>
+  
+  
+  
+                                                </article>
+			
+			
+ 
+            <?php endwhile;
+			
+			
+            wp_reset_postdata(); ?>
+		
+    <?php /* wp_pagenavi( array( 'query' => $query ) ); */?>
+  
+			
+			</div>  
+			     
+        </div>
+    <?php $myvariable = ob_get_clean();
+    return $myvariable;
+    }
+
+}
+/* Vacancy shortcode ends*/
