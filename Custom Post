@@ -78,3 +78,7 @@ class DM_Project_Post_Types {
 } // End class
 
 new DM_Project_Post_Types;
+
+/* require the file in the functions.php file*/
+/* require_once('config/post-types.php');*/
+
